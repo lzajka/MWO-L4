@@ -1,0 +1,45 @@
+@startuml uc
+left to right direction
+:Administrator: as admin
+:System transakcyjny: as st
+:Serwis: as serwis
+:Użytkownik: as user
+
+
+rectangle "System centralny" {
+usecase "Zdalna aktualizacja oprogramowania biletomatów" as uc_akt
+usecase "Wyświetl raport sprzedaży" as uc_dost
+usecase "Konfiguracja dostępnych biletów, promocji i taryf" as uc_konf
+usecase "Aktualizacja listy dostępnych biletów i ich cen" as uc_akt
+usecase "Kupno biletu" as uc_kup
+usecase "Wyswietl status transakcji" as uc_stat
+usecase "Odbierz powiadomienia o błędach i awariach" as uc_serv
+usecase "Wyświetl instrukcje" as uc_instr
+usecase "Wyświetl czas pozostały na decyzję" as uc_czas
+usecase "Wybierz język" as uc_lang
+usecase "Podgląd zamówienia" as uc_pod
+usecase "Wydaj potwierdzenie zakupu" as uc_wyd
+usecase "Wybierz metodę płatności" as uc_met
+usecase "Wybierz rodzaj biletu" as uc_wyb
+usecase "Zarejestruj transakcję" as uc_rej
+}
+
+
+admin --> uc_akt
+admin --> uc_dost
+admin --> uc_konf
+user --> uc_kup
+user --> uc_stat
+st -- uc_kup
+st -- uc_stat
+serwis --> uc_serv
+user --> uc_instr
+user --> uc_lang
+uc_kup .-> uc_wyb : <<invoke>>
+uc_kup .-> uc_czas : <<invoke>>
+uc_kup .-> uc_pod : <<invoke>>
+uc_kup .-> uc_wyd : <<invoke>>
+uc_kup .-> uc_met : <<invoke>>
+uc_kup .-> uc_rej : <<invoke>>
+
+@enduml
