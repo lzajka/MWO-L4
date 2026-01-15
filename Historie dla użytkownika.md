@@ -12,3 +12,17 @@ biletomatu bez względu na znajomość języka lokalnego.
 aby uniknąć pomyłek.
 7. Jako użytkownik, chcę otrzymać potwierdzenie zakupu (np. wydruk biletu lub
 elektroniczny bilet), aby móc korzystać z transportu zgodnie z przepisami.
+
+## Przypadki użycia
+### Wybór języka
+
+```mermaid
+flowchart TD
+
+U[Użytkownik] --> UC_JZ(Wybranie języka)
+UC_POP(Wyranie popularnego języka) -.-> |extend| UC_JZ 
+UC_JZ -.-> |include| UC_DEF(Wybranie domyślnego języka)
+
+UC_JZ -.-> |include| UC_CANC(Anulowanie transakcji)
+
+```
