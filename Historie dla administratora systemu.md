@@ -4,3 +4,12 @@ aby zapewnić zgodność z nowymi wymogami i funkcjonalnościami.
 rzeczywistym, aby monitorować wyniki finansowe.
 3. Jako administrator, chcę konfigurować dostępne bilety, promocje i taryfy w
 systemie centralnym, aby odzwierciedlać zmiany w ofercie.
+
+# Diagramy przypadków użycia
+
+```mermaid
+flowchart TD
+    Administrator --> uc1[Zarządzanie dostępnością biletów]
+    uc1 -.includes.-> uc2[Synchronizacja danych]
+    uc1 -.extends.-> uc3[Powiadomienie o problemach synchronizacji]
+```
