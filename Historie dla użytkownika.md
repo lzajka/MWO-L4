@@ -13,8 +13,19 @@ aby uniknąć pomyłek.
 7. Jako użytkownik, chcę otrzymać potwierdzenie zakupu (np. wydruk biletu lub
 elektroniczny bilet), aby móc korzystać z transportu zgodnie z przepisami.
 
-
 ## Diagramy przypadków użycia
+### Wybór języka
+
+```mermaid
+flowchart TD
+
+U[Użytkownik] --> UC_JZ(Wybranie języka)
+UC_POP(Wyranie popularnego języka) -.-> |extend| UC_JZ 
+UC_JZ -.-> |include| UC_DEF(Wybranie domyślnego języka)
+
+UC_JZ -.-> |include| UC_CANC(Anulowanie transakcji)
+```
+
 ### Wyświetlenie instrukcji
 ```mermaid
 flowchart TD
@@ -26,5 +37,4 @@ U_INT -.-> |include| U_CANC(Anulowanie transakcji)
 U_INT -.-> |include| U_WYB(Wybranie biletu)
 
 U_SZCZ(Wyświetl szczegółowe instrukcje) -.-> |extend| U_INS
-
 ```
