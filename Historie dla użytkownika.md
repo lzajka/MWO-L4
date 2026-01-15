@@ -12,3 +12,19 @@ biletomatu bez względu na znajomość języka lokalnego.
 aby uniknąć pomyłek.
 7. Jako użytkownik, chcę otrzymać potwierdzenie zakupu (np. wydruk biletu lub
 elektroniczny bilet), aby móc korzystać z transportu zgodnie z przepisami.
+
+
+## Diagramy przypadków użycia
+### Wyświetlenie instrukcji
+```mermaid
+flowchart TD
+
+U[Użytkownik] --> U_INT(Rozpoczęcie interakcji z biletomatem) -.-> |include| U_INS(Wyświetl instrukcje)
+
+U_INT -.-> |include| U_CANC(Anulowanie transakcji)
+
+U_INT -.-> |include| U_WYB(Wybranie biletu)
+
+U_SZCZ(Wyświetl szczegółowe instrukcje) -.-> |extend| U_INS
+
+```
