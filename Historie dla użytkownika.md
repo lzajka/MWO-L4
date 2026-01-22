@@ -38,3 +38,57 @@ U_INT -.-> |include| U_WYB(Wybranie biletu)
 
 U_SZCZ(Wyświetl szczegółowe instrukcje) -.-> |extend| U_INS
 ```
+
+## Diagramy sekwencji
+
+### Diagram sekwencji dla przypadku użycia Wybór języka
+
+- Aktor: Użytkownik
+- Obiekty: Biletomat
+- Kolejność komunikatów:
+    * Użytkownik uruchamia biletomat
+    * System wyświetla ekran powitalny z opcjami wyboru języka
+    * Użytkownik wybiera preferowany język
+    * System dostosowywuje interfejs do wybranego języka
+- Scenariusz alternatywny 1 (Anulowanie procesu):
+    * Użytkownik w każdej chwili może anulować proces
+- Scenariusz alternatywny 2 (Lista popularnych języków):
+    * Użytkownik uruchamia biletomat
+    * System wyświetla ekran powitalny z opcjami wyboru języka
+    * Użytkownik wybiera opcję wyświetlenia listy popularnych języków
+    * System wyświetla listę popularnych języków
+    * Użytkownik wybiera preferowany język
+    * System dostosowywuje interfejs do wybranego języka
+- Scenariusz alternatywny 3 (Domyślny język):
+    * Użytkownik uruchamia biletomat
+    * System wyświetla ekran powitalny z opcjami wyboru języka
+    * Użytkownik wybiera opcję ustawienia języka domyślnego
+    * System dostosowywuje interfejs do wybranego języka
+
+```mermaid
+sequenceDiagram
+	participant u as Użytkownik
+	participant b as Biletomat
+	
+	activate u
+	u ->>+ b: Rozpoczęcie interakcji
+	b -->>- u: Wyświetlenie opcji języka
+	alt Użytkownik chce zobaczyć listę popularnych języków
+		u ->>+ b: Lista popularnych języków
+		b -->> u: Wyświetlenie listy popularnych języków
+		deactivate b
+	else Użytkownik chce ustawić język domyślny
+		activate b
+		u ->> b: Domyślny język
+	else
+		u ->> b: Wybór języka
+	end
+	b ->> b: Dostosowanie interfejsu
+	deactivate b
+	
+	break Użytkownik chce anulować proces
+		u ->> b: Anulowanie procesu
+	end
+	
+	deactivate u
+```
