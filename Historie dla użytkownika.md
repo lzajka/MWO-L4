@@ -71,7 +71,7 @@ sequenceDiagram
 	participant b as Biletomat
 	
 	activate u
-	u ->>+ b: Rozpoczęcie interakcji
+  u ->>+ b: Rozpoczęcie interakcji
 	b -->>- u: Wyświetlenie opcji języka
 	alt Użytkownik chce zobaczyć listę popularnych języków
 		u ->>+ b: Lista popularnych języków
@@ -88,6 +88,45 @@ sequenceDiagram
 	
 	break Użytkownik chce anulować proces
 		u ->> b: Anulowanie procesu
+  end
+	
+	deactivate u
+```
+
+### Diagram sekwencji dla przypadku użycia Otrzymanie instrukcji na ekranie
+
+- Aktor: Użytkownik
+- Obiekty: Biletomat
+- Kolejność komunikatów:
+    * Użytkownik rozpoczyna interakcję z biletomatem
+    * System wyświetla krokowe instrukcje na ekranie
+    * Użytkownik podąża za wyświetlanymi wskazówkami, np. wybiera bilet, zatwierdza transakcję 
+- Scenariusz alternatywny 1 (Anulowanie transakcji):
+    * Użytkownik w każdej chwili może anulować proces
+- Scenariusz alternatywny 2 (Szczegółówa pomoc)
+    * Użytkownik rozpoczyna interakcję z biletomatem
+    * System wyświetla krokowe instrukcje na ekranie
+    * Użytkownik prosi o szczegółową pomoc
+    * System wyświetla szczegółową pomoc
+    * Użytkownik podąża za wyświetlanymi wskazówkami, np. wybiera bilet, zatwierdza transakcję 
+
+```mermaid
+sequenceDiagram
+	participant u as Użytkownik
+	participant b as Biletomat
+	
+	activate u
+	u ->>+ b: Rozpoczęcie interakcji
+	b -->>- u: Wyświetlenie instrukcji
+	alt Użytkownik chce uzyskać szczegółową pomoc
+		u ->>+ b: Prośba o szczegółową pomoc
+		b -->>- u: Wyświetlenie szczegółowej pomocy	
+	end
+	u ->>+ b: Postępowanie według instrukcji
+	deactivate b
+	
+	break Użytkownik chce anulować proces
+		u ->> b: Anulowanie transakcji
 	end
 	
 	deactivate u
