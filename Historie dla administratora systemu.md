@@ -20,7 +20,7 @@ flowchart TD
     uc1 -.includes.-> uc2[Synchronizacja danych]
     uc1 -.extends.-> uc3[Powiadomienie o problemach synchronizacji]
 ```
-# Diagramy sekwencji
+## Diagramy sekwencji
 ### Zarządzanie dostępnością biletu
 ```mermaid
 sequenceDiagram
@@ -53,5 +53,29 @@ sequenceDiagram
     BT -->> SY : 
     SY -->> UI : Aktualna lista biletów
     UI -->> AD : Aktualna lista biletów
+```    
+### Aktualizacja oprogramowania
+```mermaid
+sequenceDiagram
+    participant AD as Administrator
+    participant UI as Platforma administracyjna
+    participant SY as System Centraln
+    participant BT as Biletomat 
+
+    AD ->> UI : Wybranie menu zarządzania biletomatami
+    UI ->> SY : Pobranie listy wersji biletomatów
+    SY -->> UI : Lista wersji biletomatów
+    UI -->> AD : Wyświetlenie listy biletomatów
+    AD ->> UI : Wybranie biletomatu
+    UI -->> AD : Wyświetlenie szczegółów biletomatu
+    AD ->> UI : Wybranie opcji zaktualizuj
+    UI ->> SY : Zaktualizuj_biletomat(id) 
+    SY ->> BT : Aktualizacja(obraz)
+    opt Aktualizacja zakończona błędem
+    BT ->> BT : Rollback
+    end
+    BT -->> SY : Wynik aktualizacji
+    SY -->> UI : Wynik aktualizacji dla biletomatu
+    UI -->> AD : Wyświetl powiadomienie o stanie aktualizacji
 
 ```
