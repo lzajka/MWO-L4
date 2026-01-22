@@ -20,3 +20,38 @@ flowchart TD
     uc1 -.includes.-> uc2[Synchronizacja danych]
     uc1 -.extends.-> uc3[Powiadomienie o problemach synchronizacji]
 ```
+# Diagramy sekwencji
+### Zarządzanie dostępnością biletu
+```mermaid
+sequenceDiagram
+    participant AD as Administrator
+    participant UI as Platforma administracyjna
+    participant SY as System Centralny
+    participant BT as Biletomaty
+
+    AD ->> UI : Wybranie menu zarządzania dostępnością biletów
+    UI ->> SY : Pobranie listy biletów
+    SY -->> UI : Lista biletów
+    UI -->> AD : Wyświetlenie listy biletów
+    alt Administrator chce dodać bilet
+    AD ->> UI : Wybranie opcji dodaj bilet
+    UI -->> AD : Formularz dodania biletu
+    AD ->> UI : Administrator wypełnia formularz dodania biletu
+    UI ->> SY : dodaj_bilet(bilet_info)
+    else Administrator chce edytować bilet
+    AD ->> UI : Wybranie opcji edycji biletu z listy
+    UI ->> SY : Pobranie danych biletu
+    SY -->> UI : Dane biletu
+    UI -->> AD : Wyświetlenie szczegółów biletu
+    AD ->> UI : Modyfikacja danych w polach
+    UI ->> SY : zaktualizuj_bilet(bilet_id, bilet_info) 
+    else Administrator chce usunąć bilet
+    AD ->> UI : Wybranie opcji usunięcia biletu z listy
+    UI ->> SY : usun_bilet(id)
+    end
+    SY ->> BT : zaktualizuj listę biletów
+    BT -->> SY : 
+    SY -->> UI : Aktualna lista biletów
+    UI -->> AD : Aktualna lista biletów
+
+```
