@@ -79,3 +79,36 @@ sequenceDiagram
     UI -->> AD : Wyświetl powiadomienie o stanie aktualizacji
 
 ```
+
+## Diagramy klas
+
+### Aktualizacja oprogramowania
+
+```mermaid
+classDiagram
+	class Admin {
+	}
+	
+	class AdminPlatform {
+		-TicketMachine[] ticketMachineList
+		+TicketMachine[] showTicketMachineList()
+		+TicketMachine showTicketMachineInfo(id)
+		+bool updateTicketMachine(id)
+	}
+	
+	class CentralSystem {
+		-TicketMachine[] ticketMachineList
+		+TicketMachine[] downloadTicketMachineList()	
+		+bool updateTicketMachine(id)
+	}
+	
+	class TicketMachine {
+		-Image softwareImage
+		+bool update(image)
+		-void rollback()
+	}
+	
+	Admin --> AdminPlatform : interacts with
+	AdminPlatform --> CentralSystem : modifies
+	CentralSystem --> TicketMachine : updates
+```
