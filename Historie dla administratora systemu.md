@@ -79,3 +79,42 @@ sequenceDiagram
     UI -->> AD : Wyświetl powiadomienie o stanie aktualizacji
 
 ```
+
+## Diagram klas
+
+### Zarządzanie dostępnością biletu
+
+```mermaid
+classDiagram
+	class Admin {
+	}
+	
+	class AdminPlatform {
+		-Ticket[] ticketList
+		+Ticket[] showTicketList()
+		+void addTicket()
+		+Ticket[] postTicket(TicketInfo ticketInfo)
+		+TicketInfo editTicket(id)
+		+Ticket[] updateTicket(id, TicketInfo ticketInfo)
+		+Ticket[] deleteTicket(id)
+	}
+	
+	class CentralSystem {
+		-Ticket[] ticketList
+		-TicketInfo[] ticketInfoList
+		+Ticket[] downloadTicketList()
+		+TicketInfo downloadTicketInfo(id)
+		+void addTicket(TicketInfo ticketInfo)
+		+void updateTicket(id, TicketInfo ticketInfo)
+		+void deleteTicket(id)
+	}
+	
+	class TicketMachine {
+		-Ticket[] ticketList
+		+void updateTicketList()
+	}
+
+	Admin --> AdminPlatform : interacts with
+	AdminPlatform --> CentralSystem : modifies
+	CentralSystem --> TicketMachine : updates
+```
