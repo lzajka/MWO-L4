@@ -131,3 +131,39 @@ sequenceDiagram
 	
 	deactivate u
 ```
+
+
+
+
+## Opis klas
+
+### Klasy
+
+#### Biletomat
+- ATRYBUTY: `int id`, `STRING jezyk` 
+- METODY: `VOID ustawJezyk(String jezyk)`, `VOID wyswietlDostepneJezyki()`
+
+#### Baza danych
+- ATRYBUTY: `LIST<STRING> dostepne_jezyki`
+- Metody: `LIST<String> PobierzListeJezykow()`
+
+
+- Biletomat korzysta z bazy danych do weryfikacji dostępnych języków
+- Baza danych zawiera instrukcje
+
+### Diagram klas
+
+```mermaid
+classDiagram
+	class Biletomat{
+		-int id
+		-STRING jezyk
+		+VOID ustawJezyk(String jezyk)
+		+VOID wyswietlDostepneJezyki()
+	}
+	class BazaDanych{
+		- LIST<STRING> dostepne_jezyki
+		+ LIST<String> PobierzListeJezykow()
+	}
+	Biletomat --> BazaDanych
+```
