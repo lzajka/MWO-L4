@@ -79,3 +79,86 @@ sequenceDiagram
     UI -->> AD : Wyświetl powiadomienie o stanie aktualizacji
 
 ```
+
+## Diagram klas
+
+### Zarządzanie dostępnością biletu
+
+```mermaid
+classDiagram
+	class Admin {
+	}
+	
+	class AdminPlatform {
+  	-Ticket[] ticketList
+		+Ticket[] showTicketList()
+		+void addTicket()
+		+Ticket[] postTicket(TicketInfo ticketInfo)
+		+TicketInfo editTicket(id)
+		+Ticket[] updateTicket(id, TicketInfo ticketInfo)
+		+Ticket[] deleteTicket(id)
+	}
+	
+	class CentralSystem {
+		-Ticket[] ticketList
+		-TicketInfo[] ticketInfoList
+		+Ticket[] downloadTicketList()
+		+TicketInfo downloadTicketInfo(id)
+		+void addTicket(TicketInfo ticketInfo)
+		+void updateTicket(id, TicketInfo ticketInfo)
+		+void deleteTicket(id)
+	}
+	
+	class TicketMachine {
+		-Ticket[] ticketList
+		+void updateTicketList()
+	}
+	
+	class Ticket {
+		+id
+	}
+	
+	class TicketInfo {
+		+int price
+		+string description
+	}
+
+	Admin --> AdminPlatform : interacts with
+	AdminPlatform --> CentralSystem : modifies
+	CentralSystem --> TicketMachine : updates
+	Ticket --> TicketInfo : has
+	TicketMachine --> Ticket : holds
+	CentralSystem --> Ticket : holds
+```
+  
+
+### Aktualizacja oprogramowania
+
+```mermaid
+classDiagram
+	class Admin {
+	}
+	
+	class AdminPlatform {
+		-TicketMachine[] ticketMachineList
+		+TicketMachine[] showTicketMachineList()
+		+TicketMachine showTicketMachineInfo(id)
+		+bool updateTicketMachine(id)
+	}
+	
+	class CentralSystem {
+		-TicketMachine[] ticketMachineList
+		+TicketMachine[] downloadTicketMachineList()	
+		+bool updateTicketMachine(id)
+	}
+	
+	class TicketMachine {
+		-Image softwareImage
+		+bool update(image)
+		-void rollback()
+	}
+	
+	Admin --> AdminPlatform : interacts with
+	AdminPlatform --> CentralSystem : modifies
+	CentralSystem --> TicketMachine : updates
+```

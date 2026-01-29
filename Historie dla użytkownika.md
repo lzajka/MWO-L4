@@ -134,8 +134,7 @@ sequenceDiagram
 
 
 
-
-## Opis klas
+## Wybor jezyka
 
 ### Klasy
 
@@ -147,16 +146,15 @@ sequenceDiagram
 - ATRYBUTY: `LIST<STRING> dostepne_jezyki`
 - Metody: `LIST<String> PobierzListeJezykow()`
 
-
+### Relacje
 - Biletomat korzysta z bazy danych do weryfikacji dostępnych języków
-- Baza danych zawiera instrukcje
 
 ### Diagram klas
 
 ```mermaid
 classDiagram
 	class Biletomat{
-		-int id
+    -int id
 		-STRING jezyk
 		+VOID ustawJezyk(String jezyk)
 		+VOID wyswietlDostepneJezyki()
@@ -166,4 +164,45 @@ classDiagram
 		+ LIST<String> PobierzListeJezykow()
 	}
 	Biletomat --> BazaDanych
+```
+
+## Wyswietlenie instrukcji
+### Klasy
+#### Biletomat
+- ATRYBUTY: `int id`, `STRING id_kroku`, `STRING jezyk` 
+- METODY: `VOID wyswietlInstrukcje()`, 
+
+#### Baza danych
+- ATRYBUTY: `MAP<STRING, Instrukcja> instrukcje
+- Metody: `Instrukcja pobierzInstrukcje(String jezyk)`
+
+#### Instrukcje
+- ATRYBUTY: `STRING nazwa`, `MAP<STRING, String> tresc`
+- METODY: `STRING pobierzKrok(STRING krok)`
+### Relacje
+
+- Biletomat korzysta z bazy danych do pobierania języków
+- Baza danych zawiera instrukcje
+
+### Diagram klas
+
+```mermaid
+classDiagram
+	class Biletomat{
+    +int id
+		+STRING id_kroku
+		+STRING jezyk
+		+VOID wyswietlInstrukcje()
+	}
+	class BazaDanych{
+		+MAP<STRING, Instrukcja> instrukcje
+		+Instrukcja pobierzInstrukcje(String jezyk)
+	}
+	class Instrukcja{
+		+STRING nazwa
+		+MAP<STRING, String> tresc
+		+STRING pobierzKrok(STRING krok)
+	}
+	Biletomat --> BazaDanych
+	BazaDanych --> Instrukcja
 ```
