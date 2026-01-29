@@ -113,8 +113,20 @@ classDiagram
 		-Ticket[] ticketList
 		+void updateTicketList()
 	}
+	
+	class Ticket {
+		+id
+	}
+	
+	class TicketInfo {
+		+int price
+		+string description
+	}
 
 	Admin --> AdminPlatform : interacts with
 	AdminPlatform --> CentralSystem : modifies
 	CentralSystem --> TicketMachine : updates
+	Ticket --> TicketInfo : has
+	TicketMachine --> Ticket : holds
+	CentralSystem --> Ticket : holds
 ```
